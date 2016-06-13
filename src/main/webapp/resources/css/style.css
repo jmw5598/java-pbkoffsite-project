@@ -1,0 +1,79 @@
+html, body {
+
+}
+
+#logo {
+    margin: 40px auto;
+    width: 90%;
+}
+
+
+#nav-logo {
+    width: 90%;
+    margin: 40px auto;
+    
+}
+
+.nav-sub>li>a {
+	padding-left: 30px;
+    color: #444;
+    font-size: .8em;
+}
+.nav-sub>li>a>i {
+	margin-right: 10px;
+}
+
+.nav-sub>li {
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.nav-sub>li>a:hover {
+    background: #F8F8F8;
+}
+
+.margin-zero {
+    margin: 0;
+}
+
+.padding-zero {
+    padding: 0;
+}
+
+.bg-gray-light {
+    background: #f3f3f3;
+}
+
+.padding-top {
+    padding-top: 1em;
+}
+
+.label-as-badge {
+    border-radius: 1em;
+    font-size: 11px;
+}
+
+/******
+
+	Right caption on thumbnail
+
+******/
+
+.thumbnail.right-caption > img {
+    float: left !important;
+}
+
+.thumbnail.right-caption {
+    float: left !important;
+}
+
+.thumbnail.right-caption > .caption {
+
+}
+
+/* Removes arrow */
+select.form-control {
+  -moz-appearance: none;
+   -webkit-appearance: none;
+   appearance: none;
+}
+

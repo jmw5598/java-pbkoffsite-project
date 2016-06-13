@@ -1,0 +1,4 @@
+<link href="<c:url value="/resources/css/libs/bootstrap.min.css" />" rel="stylesheet" type="text/css" />
+<link href="<c:url value="/resources/css/libs/bootstrap-theme-yeti-custom.min.css" />" rel="stylesheet" type="text/css" />
+<link href="<c:url value="/resources/css/libs/font-awesome/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
+<link href="<c:url value="/resources/css/style.css" />" rel="stylesheet" type="text/css" />

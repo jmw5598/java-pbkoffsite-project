@@ -1,0 +1,111 @@
+<!-- ROW CONTAINING SELECTED ITEM DETAILS & IMAGES -->
+<div class="row">
+
+	<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+		<div class="thumbnail">
+		<img class="img-responsive" src="<c:url value="${item.imageUrls[0]}" />" alt="Item thumbnail" />
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-9 col-lg-9	">
+		<div class="row">
+			<div class="col-xs-12">
+				<ul class="list-group">
+					<li class="list-group-item"><c:out value="${item.sku}" /></li>
+					<li class="list-group-item"><c:out value="${item.description}" /></li>
+					<li class="list-group-item"><c:out value="${item.stockroom}" /></li>
+					<li class="list-group-item"><c:out value="${item.location}" /></li>
+					<li class="list-group-item"><c:out value="${item.condition}" /></li>
+					<li class="list-group-item"><c:out value="${item.addedBy}" /></li>
+					
+					<!-- ALLOW MODIFY ITEM ACCESS TO ADMIN AND WRITE USERS -->
+					<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_WRITE')">
+						<li class="list-group-item">
+							<form action="<c:url value="/inventory/item/remove" />" method="POST">
+								<div class="input-group">
+									<span class="input-group-btn">
+										<button class="btn btn-primary" type="submit">Update</button>
+									</span>
+									<select class="form-control" name="reason_id">
+										<c:forEach items="${removedReasons}" var="reason">
+											<option value="<c:out value="${reason.id}" />"><c:out value="${reason.description}" /></option>
+										</c:forEach>
+										<input type="hidden" name="item_id" value="<c:out value="${item.id}" />" />
+										<input type="hidden" name="stockroom" value="<c:out value="${item.stockroom}" />" />
+										<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+									</select>
+								</div>
+							</form>
+						</li>
+					</sec:authorize>
+				
+				</ul>
+			</div>
+		</div>
+	</div>
+	
+</div>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="well">
+			<div id="item-image-carousel" class="carousel slide">
+				<div class="carousel-inner">
+					<div class="item active">
+						<div class="row">
+							<div class="col-sm-2"><a href="#" class="thumbnail"><img src="http://placehold.it/500x500" alt="Image" class="img-responsive"></a></div>
+							<div class="col-sm-2"><a href="#" class="thumbnail"><img src="http://placehold.it/500x500" alt="Image" class="img-responsive"></a></div>
+							<div class="col-sm-2"><a href="#" class="thumbnail"><img src="http://placehold.it/500x500" alt="Image" class="img-responsive"></a></div>
+							<div class="col-sm-2"><a href="#" class="thumbnail"><img src="http://placehold.it/500x500" alt="Image" class="img-responsive"></a></div>
+							<div class="col-sm-2"><a href="#" class="thumbnail"><img src="http://placehold.it/500x500" alt="Image" class="img-responsive"></a></div>
+							<div class="col-sm-2"><a href="#" class="thumbnail"><img src="http://placehold.it/500x500" alt="Image" class="img-responsive"></a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- ROW CONTAINING TABLE OF SIMILAR ITEMS -->
+<div class="row">
+	<div class="col-xs-12">
+		<legend><h4>Similar items available <span class="label label-default label-as-badge"><c:out value="${fn:length(similarItems)}" /></span></h4></legend>
+		<div class="panel panel-default">
+			<table class="table table-stripped table-hover">
+				<thead>
+                	<tr>
+                    	<th>Date</th>
+                        <th>Sku</th>
+                        <th>Item</th>
+                        <th>Condition</th>
+                        <th>Stockroom</th>
+						<th>Location</th>
+                        <th>Added By</th>
+                        <th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<c:forEach items="${similarItems}" var="similarItem">
+	                    	<tr>
+								<td><fmt:formatDate value="${similarItem.dateAdded}" pattern="MM/dd/yyyy" /></td>
+								<td><c:out value="${similarItem.sku}" /></td>
+								<td><c:out value="${similarItem.description}" /></td>
+								<td><c:out value="${similarItem.condition}" /></td>
+								<td><c:out value="${similarItem.stockroom}" /></td>
+								<td><c:out value="${similarItem.location}" /></td>
+								<td><c:out value="${similarItem.addedBy}" /></td>
+								<td>
+									<a href="<c:url value="/inventory/item/${similarItem.id}" />"><i class="fa fa-eye"></i></a>
+								</td>
+							</tr>
+						</c:forEach>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+
+
