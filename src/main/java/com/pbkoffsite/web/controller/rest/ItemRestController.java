@@ -98,4 +98,10 @@ public class ItemRestController {
 		
 	}
 	
+	@RequestMapping(value="/all", method=RequestMethod.GET, produces="application/json")
+	public List<Item> listAllItems() {
+		
+		return itemService.listAllItems();
+		
+	}
 }
