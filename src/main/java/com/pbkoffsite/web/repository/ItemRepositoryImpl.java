@@ -57,6 +57,9 @@ public class ItemRepositoryImpl implements ItemRepository {
 	@Value("${sql.item.removeItem}")
 	String removeItem;
 	
+	@Value("${sql.item.undoRemoveItem}")
+	String undoRemoveItem;
+	
 	@Override
 	public List<Item> listAllItems() {
 		
@@ -167,6 +170,13 @@ public class ItemRepositoryImpl implements ItemRepository {
 	public int removeItem(int id, int removed_reason_id, int user_id) {
 		
 		return jdbcTemplate.update(removeItem, new Object[]{user_id, removed_reason_id, id});
+		
+	}
+
+	@Override
+	public int undoRemoveItem(int id) {
+		
+		return jdbcTemplate.update(undoRemoveItem, new Object[]{id});
 		
 	}
 	

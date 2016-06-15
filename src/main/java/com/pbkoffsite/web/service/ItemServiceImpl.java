@@ -90,6 +90,13 @@ public class ItemServiceImpl implements ItemService {
 		return itemRepository.removeItem(id, removed_reason_id, user_id);
 		
 	}
+
+	@Override
+	public int undoRemoveItem(int id) {
+		
+		return itemRepository.undoRemoveItem(id);
+		
+	}
 	
 	
 	

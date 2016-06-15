@@ -19,5 +19,6 @@ public interface ItemRepository {
 	List<Item> listSimilarItems(Item item);
 	List<SimpleIdDescription> listItemRemovedReasons();
 	int removeItem(int id, int removed_reason_id, int user_id);
+	int undoRemoveItem(int id);
 
 }
