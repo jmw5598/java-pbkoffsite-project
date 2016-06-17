@@ -10,10 +10,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+import com.pbkoffsite.web.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -33,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/inventory/item/add").access("hasRole('ROLE_WRITE') OR hasRole('ROLE_ADMIN')")
 			.antMatchers("/admin/*").access("hasRole('ROLE_ADMIN')")
 			.anyRequest().permitAll()
-		.and()
+			.and()
 		.formLogin()
 			.loginPage("/login")
 			.usernameParameter("username")
@@ -41,11 +42,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.defaultSuccessUrl("/home")
 			.failureUrl("/login?error=true")
 			.permitAll()
-		.and()
+			.and()
 		.logout()
 			.logoutSuccessUrl("/")
 			.permitAll()
-		.and()
+			.and()
 		.csrf();
 		
 	}
@@ -60,30 +61,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Autowired
-	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+	public void configureGlobal(AuthenticationManagerBuilder auth, UserDetailsService userDetailsServiceImpl) throws Exception {
 		
 		auth
-			.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
+			.userDetailsService(userDetailsServiceImpl).passwordEncoder(passwordEncoder());
 		
 	}
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
-		
 		return new BCryptPasswordEncoder();
-		
 	}
 	
 	@Bean
-	public UserDetailsService userDetailsService() {
-		
-		JdbcDaoImpl jdbcImpl = new JdbcDaoImpl();
-		jdbcImpl.setDataSource(dataSource);
-		jdbcImpl.setUsersByUsernameQuery("select username, password, enabled from user where username=?;");
-		jdbcImpl.setAuthoritiesByUsernameQuery("select u.username, r.role from user as u inner join user_role as ur on u.id = ur.user_id inner join role as r on ur.role_id = r.id where username=?;");
-		
-		return jdbcImpl;
-		
+	public UserDetailsServiceImpl userDetailsServiceImpl() {
+		return new UserDetailsServiceImpl();
 	}
 	
 }

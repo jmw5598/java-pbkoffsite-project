@@ -13,7 +13,7 @@
 			<form action="index.html">
 				<div class="form-group">
 					<h5>
-						<c:out value="${principal.username}" />  <a class="pull-right" role="button" href="<c:url value=" /logout" />"><i
+						<c:out value="${principal.firstName} ${principal.lastName}" />  <a class="pull-right" role="button" href="<c:url value=" /logout" />"><i
 							class="fa fa-unlock-alt"></i> Logout</a>
 					</h5>
 				</div>

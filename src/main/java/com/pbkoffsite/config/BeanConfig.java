@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 import com.pbkoffsite.web.util.ItemMapper;
+import com.pbkoffsite.web.util.RoleMapper;
 import com.pbkoffsite.web.util.SimpleIdDescriptionMapper;
 import com.pbkoffsite.web.util.StockroomMapper;
 import com.pbkoffsite.web.util.UserMapper;
@@ -59,6 +60,11 @@ public class BeanConfig {
 		
 		return new SimpleIdDescriptionMapper();
 		
+	}
+	
+	@Bean
+	public RoleMapper roleMapper() {
+		return new RoleMapper();
 	}
 	
 }

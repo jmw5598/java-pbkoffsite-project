@@ -3,6 +3,7 @@ package com.pbkoffsite.web.controller;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.pbkoffsite.web.bean.Item;
 import com.pbkoffsite.web.bean.User;
 import com.pbkoffsite.web.service.ItemService;
-import com.pbkoffsite.web.service.UserService;
 
 
 @Controller
@@ -23,8 +23,8 @@ public class InventoryController {
 	@Autowired
 	private ItemService itemService;
 	
-	@Autowired
-	private UserService userService;
+	//@Autowired
+	//private UserDetailsService userService;
 	
 	@RequestMapping(value="/stockroom/{stockroom}", method=RequestMethod.GET)
 	public String viewStockroomInventory(@PathVariable("stockroom") String stockroom, Model model) {
@@ -77,9 +77,10 @@ public class InventoryController {
 	@RequestMapping(value="/item/remove", method=RequestMethod.POST)
 	public String removeItem(@RequestParam("item_id") Integer item_id,
 							 @RequestParam("reason_id") Integer reason_id,
-							 @RequestParam("stockroom") String stockroom, Principal principal) {
+							 @RequestParam("stockroom") String stockroom, 
+							 @AuthenticationPrincipal User user) {
 		
-		User user = userService.findUserByUsername(principal.getName());
+		//User user = userService.findUserByUsername(principal.getName());
 		int status = itemService.removeItem(item_id, reason_id, user.getId());
 		
 		return "redirect:/inventory/stockroom/" + stockroom;

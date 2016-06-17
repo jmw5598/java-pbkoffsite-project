@@ -14,7 +14,6 @@ import com.pbkoffsite.web.bean.SimpleIdDescription;
 import com.pbkoffsite.web.bean.Stockroom;
 import com.pbkoffsite.web.bean.User;
 import com.pbkoffsite.web.service.ItemService;
-import com.pbkoffsite.web.service.UserService;
 
 @RestController
 @RequestMapping(value="/api/items")
@@ -23,8 +22,6 @@ public class ItemRestController {
 	@Autowired
 	private ItemService itemService;
 	
-	@Autowired
-	private UserService userService;
 	
 	
 	@RequestMapping(value="/{id}", method=RequestMethod.GET, produces="application/json")
@@ -77,19 +74,8 @@ public class ItemRestController {
 		
 	}
 	
-	@RequestMapping(value="/user/{id}", method=RequestMethod.GET, produces="application/json")
-	public User userByUsername(@PathVariable("id") int id) {
-		
-		return userService.findUserById(id); 
-		
-	}
 	
-	@RequestMapping(value="/user/all", method=RequestMethod.GET, produces="application/json")
-	public List<User> allUser() {
-		
-		return userService.listUsers();
-		
-	}
+	
 	
 	@RequestMapping(value="/remove/reasons", method=RequestMethod.GET, produces="application/json")
 	public List<SimpleIdDescription> listRemovedReasons() {
