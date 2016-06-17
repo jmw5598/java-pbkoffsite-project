@@ -68,9 +68,6 @@ public class User implements Serializable {
 	}
 	
 	public Collection<Role> getRoles() {
-		for(Role r : roles) {
-			System.out.println(r.getAuthority());
-		}
 		return roles;
 	}
 
