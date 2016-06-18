@@ -28,12 +28,6 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 		User user = userRepository.findUserByUsername(username);
 		user.setRoles(userRepository.findRolesByUsername(username));
 		
-		Collection<Role> roles = user.getRoles();
-		for(Role r : roles) {
-			r.getAuthority();
-		}
-		
-		
 		if(user == null)
 			throw new UsernameNotFoundException("Username not found");
 		
