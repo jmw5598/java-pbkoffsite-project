@@ -1,15 +1,26 @@
 package com.pbkoffsite.config;
 
+import javax.sql.DataSource;
+
+import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.Database;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
-import com.pbkoffsite.web.util.ItemMapper;
-import com.pbkoffsite.web.util.RoleMapper;
-import com.pbkoffsite.web.util.SimpleIdDescriptionMapper;
-import com.pbkoffsite.web.util.StockroomMapper;
-import com.pbkoffsite.web.util.UserMapper;
+import com.pbkoffsite.web.bean.entity.ItemCondition;
+import com.pbkoffsite.web.bean.entity.Stockroom;
+import com.pbkoffsite.web.bean.entity.Item;
+import com.pbkoffsite.web.bean.entity.Location;
+import com.pbkoffsite.web.bean.entity.RemovedReason;
+import com.pbkoffsite.web.bean.entity.Role;
+import com.pbkoffsite.web.bean.entity.Sku;
+import com.pbkoffsite.web.bean.entity.User;
+import com.pbkoffsite.web.repository.hibernate.ItemRepositoryImpl;
+import com.pbkoffsite.web.repository.hibernate.StockroomRepositoryImpl;
 
 @Configuration
 public class BeanConfig {
@@ -28,43 +39,54 @@ public class BeanConfig {
 	}
 	
 	@Bean
-	public JdbcTemplate jdbcTemplate() {
-		
-		return new JdbcTemplate(dataSource());
-		
+	public JpaVendorAdapter jpaVendorAdapter() {
+		HibernateJpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+		adapter.setDatabase(Database.MYSQL);
+		adapter.setShowSql(true);
+		adapter.setGenerateDdl(false);
+		adapter.setDatabasePlatform("org.hibernate.dialect.MySQLDialect");
+		return adapter;
 	}
 	
 	@Bean
-	public ItemMapper itemMapper() {
-			
-		return new ItemMapper();
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, JpaVendorAdapter jpaVendorAdapter) {
+		
+		LocalContainerEntityManagerFactoryBean emfb = new LocalContainerEntityManagerFactoryBean();
+		emfb.setDataSource(dataSource);
+		emfb.setJpaVendorAdapter(jpaVendorAdapter);
+		emfb.setPackagesToScan("com.pbkoffsite.web.bean.entity");
+		return emfb;
 		
 	}
 	
+	
+	// SessionFactory for Hibernate
 	@Bean
-	public StockroomMapper stockroomMapper() {
+	public SessionFactory sessionFactory() {
 		
-		return new StockroomMapper();
+		return new org.hibernate.cfg.Configuration()
+					.configure("hibernate.cfg.xml")
+					.addAnnotatedClass(User.class)
+					.addAnnotatedClass(Role.class)
+					.addAnnotatedClass(Item.class)
+					.addAnnotatedClass(Sku.class)
+					.addAnnotatedClass(Location.class)
+					.addAnnotatedClass(RemovedReason.class)
+					.addAnnotatedClass(Stockroom.class)
+					.addAnnotatedClass(ItemCondition.class)
+					.buildSessionFactory();
 		
 	}
 	
+	//TESTING
 	@Bean
-	public UserMapper userMapper() {
-		
-		return new UserMapper();
-		
+	public ItemRepositoryImpl itemRepositoryImpl() {
+		return new ItemRepositoryImpl();
 	}
 	
 	@Bean
-	public SimpleIdDescriptionMapper simpleIdDescriptionMapper() {
-		
-		return new SimpleIdDescriptionMapper();
-		
-	}
-	
-	@Bean
-	public RoleMapper roleMapper() {
-		return new RoleMapper();
+	public StockroomRepositoryImpl stockroomRepositoryImpl() {
+		return new StockroomRepositoryImpl();
 	}
 	
 }
