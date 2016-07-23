@@ -60,23 +60,7 @@ public class BeanConfig {
 	}
 	
 	
-	// SessionFactory for Hibernate
-	@Bean
-	public SessionFactory sessionFactory() {
-		
-		return new org.hibernate.cfg.Configuration()
-					.configure("hibernate.cfg.xml")
-					.addAnnotatedClass(User.class)
-					.addAnnotatedClass(Role.class)
-					.addAnnotatedClass(Item.class)
-					.addAnnotatedClass(Sku.class)
-					.addAnnotatedClass(Location.class)
-					.addAnnotatedClass(RemovedReason.class)
-					.addAnnotatedClass(Stockroom.class)
-					.addAnnotatedClass(ItemCondition.class)
-					.buildSessionFactory();
-		
-	}
+	
 	
 	//TESTING
 	@Bean
