@@ -10,9 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.springframework.security.core.GrantedAuthority;
+
 @Entity
 @Table(name="role")
-public class Role {
+public class Role implements GrantedAuthority {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -23,7 +25,7 @@ public class Role {
 	private String role;
 	
 	@ManyToMany(mappedBy="roles")
-	private Collection<User> users;
+	private Collection<AuthUserDetails> users;
 	
 	public Role() {}
 	
@@ -50,6 +52,12 @@ public class Role {
 	@Override
 	public String toString() {
 		return "Role [id=" + id + ", role=" + role + "]";
+	}
+
+	@Override
+	public String getAuthority() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
