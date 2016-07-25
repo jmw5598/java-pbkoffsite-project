@@ -3,13 +3,17 @@ package com.pbkoffsite;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import com.pbkoffsite.web.bean.entity.AuthUserDetails;
 import com.pbkoffsite.web.bean.entity.Location;
 import com.pbkoffsite.web.bean.entity.Item;
-import com.pbkoffsite.web.bean.entity.User;
+import com.pbkoffsite.web.bean.entity.BasicUserDetails;
 import com.pbkoffsite.web.bean.entity.Stockroom;
 import com.pbkoffsite.web.repository.hibernate.ItemRepositoryImpl;
 import com.pbkoffsite.web.repository.hibernate.StockroomRepositoryImpl;
@@ -24,12 +28,15 @@ public class TestPersistence {
 		
 		StockroomRepositoryImpl repository = context.getBean("stockroomRepositoryImpl", StockroomRepositoryImpl.class);
 		
-		List<Stockroom> stockrooms = repository.list();
+		EntityManagerFactory emf = context.getBean("entityManagerFactory", EntityManagerFactory.class);
 		
-		//List<Item> items = stockroom.getItems();
+		List<AuthUserDetails> users = emf.createEntityManager().createQuery("FROM CustomUserDetails").getResultList();
 		
-		for(Stockroom s : stockrooms)
-			System.out.println(s);
+		
+		for(AuthUserDetails u : users)
+			System.out.println(u);
+		
+		System.out.println(users.size());
 	}
 
 }
