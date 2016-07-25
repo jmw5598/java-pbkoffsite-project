@@ -9,4 +9,5 @@ public interface StockroomRepository {
 	List<Stockroom> list(boolean listItems);
 	Stockroom findById(int id);
 	Stockroom findById(int id, boolean listItems);
+	Long countItemsByStockroomId(int id);
 }

@@ -22,7 +22,16 @@ public class StockroomRepositoryImpl implements StockroomRepository{
 	@Override
 	public List<Stockroom> list() {
 		
-		return emf.createEntityManager().createQuery("FROM Stockroom AS stockroom").getResultList();
+		List<Stockroom> stockrooms = emf.createEntityManager()
+										.createQuery("FROM Stockroom")
+										.getResultList();
+		
+		for(Stockroom s : stockrooms) {
+			s.setCount(this.countItemsByStockroomId(s.getId()));
+		}
+		
+		return stockrooms;
+		
 	}
 
 	@Override
@@ -46,6 +55,14 @@ public class StockroomRepositoryImpl implements StockroomRepository{
 			stockroom.getItems().size();
 		
 		return stockroom;
+	}
+
+	@Override
+	public Long countItemsByStockroomId(int id) {
+		
+		return (Long)emf.createEntityManager()
+				.createQuery("SELECT COUNT(*) FROM Item as item WHERE item.stockroom.id = :id")
+				.setParameter("id", id).getSingleResult();
 	}
 
 }
