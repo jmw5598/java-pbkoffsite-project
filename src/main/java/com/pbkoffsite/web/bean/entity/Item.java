@@ -31,12 +31,12 @@ public class Item {
 	@Column(name="date_added")
 	private Date dateAdded;
 
-	// link to added by user
+	// link to added by user : Use BasicUserDetails class
 	
 	@Column(name="date_removed")
 	private Date dateRemoved;
 	
-	// link to removed by user
+	// link to removed by user : Use BasicUserDetails class
 	
 	@ManyToOne(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="removed_reason_id")
