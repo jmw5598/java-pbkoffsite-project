@@ -14,14 +14,15 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import com.pbkoffsite.web.service.UserDetailsServiceImpl;
+import com.pbkoffsite.web.service.hibernate.UserDetailsServiceImpl;
+
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
-	//@Autowired
-	//UserDetailsService userDetailsService;
+//	@Autowired
+//	UserDetailsService userDetailsService;
 	@Autowired
 	DataSource dataSource;
 	

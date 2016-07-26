@@ -12,6 +12,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
 import com.pbkoffsite.web.repository.hibernate.ItemRepositoryImpl;
 import com.pbkoffsite.web.repository.hibernate.StockroomRepositoryImpl;
+import com.pbkoffsite.web.repository.hibernate.UserRepositoryImpl;
 
 @Configuration
 public class BeanConfig {
@@ -64,4 +65,8 @@ public class BeanConfig {
 		return new StockroomRepositoryImpl();
 	}
 	
+	@Bean
+	public UserRepositoryImpl userRepositoryImpl() {
+		return new UserRepositoryImpl();
+	}
 }
