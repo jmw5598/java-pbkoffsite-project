@@ -42,7 +42,7 @@
 			</li>
 			<c:forEach items="${stockrooms}" var="stockroom">
 			<li>
-				<a href="<c:url value="/inventory/stockroom/${stockroom.description}" />"> 
+				<a href="<c:url value="/inventory/stockroom/${stockroom.id}" />"> 
 					<i class="fa fa-map-marker"></i>
 					<c:out value="${stockroom.description}" />
 					<span class="label label-default label-as-badge pull-right">

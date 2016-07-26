@@ -1,4 +1,4 @@
-<legend><h4><c:out value="${selectedStockroom.description}" /></h4></legend>
+<legend><h4><c:out value="${stockroom.description}" /></h4></legend>
 
 <!-- ROW CONTAINER INPUT FILER FOR STOCKROOM ITEMS -->
 <div class="row">
@@ -33,14 +33,14 @@
 				</thead>
 				<tbody>
                                    
-				<c:forEach items="${stockroom}" var="item">
+				<c:forEach items="${stockroom.items}" var="item">
 					<tr class="item-searchable">
 						<td><fmt:formatDate value="${item.dateAdded}" pattern="MM/dd/yyyy" /></td>
-						<td><c:out value="${item.sku}" /></td>
-						<td><c:out value="${item.description}" /></td>
-						<td><c:out value="${item.stockroom}" /></td>
-						<td><c:out value="${item.location}" /></td>
-						<td><c:out value="${item.addedBy}" /></td>
+						<td><c:out value="${item.sku.id}" /></td>
+						<td><c:out value="${item.sku.description}" /></td>
+						<td><c:out value="${item.stockroom.description}" /></td>
+						<td><c:out value="${item.location.description}" /></td>
+						<td><c:out value="${item.addedBy.username}" /></td>
 						<td>
 							<a href="<c:url value="/inventory/item/${item.id}" />"><i class="fa fa-eye"></i></a>
 						</td>
