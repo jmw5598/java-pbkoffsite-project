@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,16 +18,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 @Table(name="user")
 public class AuthUserDetails extends AbstractUser implements UserDetails {
 	
-	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	
 	@Column(name="password")
 	private String password;
 	
-	@Column(name="enabled")
+	@Transient
 	private boolean isEnabled = true;
 	
 	@ManyToMany(cascade=CascadeType.PERSIST)
@@ -36,10 +33,6 @@ public class AuthUserDetails extends AbstractUser implements UserDetails {
 		inverseJoinColumns={@JoinColumn(name="role_id")}
 	)
 	private Collection<Role> roles;
-//
-//	public CustomUserDetails(User user) {
-//		super(user);
-//	}
 	
 
 	@Override
@@ -96,7 +89,7 @@ public class AuthUserDetails extends AbstractUser implements UserDetails {
 	@Override
 	public String toString() {
 		String name = super.getUsername();
-		return "CustomUserDetails [username=" + name + ", password=" + password + "]";
+		return "CustomUserDetails [username=" + name + ", password=" + password + ", enabled=" + isEnabled + "]";
 	}
 	
 	
