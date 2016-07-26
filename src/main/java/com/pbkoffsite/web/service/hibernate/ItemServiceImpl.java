@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pbkoffsite.web.bean.entity.Item;
+import com.pbkoffsite.web.bean.entity.RemovedReason;
 import com.pbkoffsite.web.repository.hibernate.ItemRepository;
 
 @Service
@@ -60,8 +61,13 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public Item remove(Item item) {
-		return itemRepository.remove(item);
+	public void remove(int itemId, int removedReasonId, int userId) {
+		itemRepository.remove(itemId, removedReasonId, userId);
+	}
+
+	@Override
+	public List<RemovedReason> listRemovalReasons() {
+		return itemRepository.listRemovalReasons();
 	}
 	
 	

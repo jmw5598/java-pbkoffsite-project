@@ -3,6 +3,7 @@ package com.pbkoffsite.web.service.hibernate;
 import java.util.List;
 
 import com.pbkoffsite.web.bean.entity.Item;
+import com.pbkoffsite.web.bean.entity.RemovedReason;
 
 public interface ItemService {
 	
@@ -12,9 +13,10 @@ public interface ItemService {
 	List<Item> listRecentlyAdded();
 	List<Item> listSimilar(Item item);
 	List<Item> listFloormodel();
+	List<RemovedReason> listRemovalReasons();
 	Item findById(int id);
 	Item update(Item item);
 	Item delete(Item item);
-	Item remove(Item item);
+	void remove(int itemId, int removedReasonId, int userId);
 	
 }

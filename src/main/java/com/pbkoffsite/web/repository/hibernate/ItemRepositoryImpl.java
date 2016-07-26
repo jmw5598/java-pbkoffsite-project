@@ -1,14 +1,18 @@
 package com.pbkoffsite.web.repository.hibernate;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pbkoffsite.web.bean.entity.BasicUserDetails;
 import com.pbkoffsite.web.bean.entity.Item;
+import com.pbkoffsite.web.bean.entity.RemovedReason;
 
 @Repository
 @Transactional
@@ -49,7 +53,7 @@ public class ItemRepositoryImpl implements ItemRepository {
 	public List<Item> listRecentlyAdded() {
 		
 		return emf.createEntityManager()
-				  .createQuery("FROM Item AS item ORDER BY item.dateAdded DESC")
+				  .createQuery("FROM Item AS item WHERE item.isAvailable = true ORDER BY item.dateAdded DESC")
 				  .setFirstResult(0)
 				  .setMaxResults(15)
 				  .getResultList();
@@ -59,7 +63,7 @@ public class ItemRepositoryImpl implements ItemRepository {
 	public List<Item> listSimilar(Item item) {
 		
 		return emf.createEntityManager()
-				  .createQuery("FROM Item AS item WHERE item.sku.id = :skuId AND item.id != :itemId")
+				  .createQuery("FROM Item AS item WHERE item.sku.id = :skuId AND item.id != :itemId AND item.isAvailable = true")
 				  .setParameter("skuId", item.getSku().getId())
 				  .setParameter("itemId", item.getId())
 				  .getResultList();
@@ -93,9 +97,30 @@ public class ItemRepositoryImpl implements ItemRepository {
 	}
 
 	@Override
-	public Item remove(Item item) {
+	public void remove(int itemId, int removedReasonId, int userId) {
 		
-		return null;
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		RemovedReason reason = em.find(RemovedReason.class, removedReasonId);
+		BasicUserDetails user = em.find(BasicUserDetails.class, userId);
+		Date date = new Date();
+		
+		Item item = (Item)em.find(Item.class, itemId);
+		
+		item.setRemovedReason(reason);
+		item.setRemovedBy(user);
+		item.setDateRemoved(date);
+		item.setAvailable(false);
+		
+		em.persist(item);
+		em.getTransaction().commit();
+	}
+
+	@Override
+	public List<RemovedReason> listRemovalReasons() {
+		return emf.createEntityManager()
+				.createQuery("From RemovedReason").getResultList();
 	}
 	
 	
