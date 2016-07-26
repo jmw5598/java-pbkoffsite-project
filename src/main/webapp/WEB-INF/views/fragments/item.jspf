@@ -3,7 +3,7 @@
 
 	<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
 		<div class="thumbnail">
-			<img class="img-responsive" src="<c:url value="${item.imageUrls[0]}" />" alt="Item thumbnail" />
+			<img class="img-responsive" src="<c:url value="${item.images[0].path}" />" alt="Item thumbnail" />
 			<!-- ALLOW MODIFY ITEM ACCESS TO ADMIN AND WRITE USERS -->
 			<sec:authorize access="hasAnyRole('ROLE_ADMIN', 'ROLE_WRITE')">
 				<div class="caption">
@@ -31,7 +31,7 @@
 														<button class="btn btn-primary" type="submit">Remove</button>
 													</span>
 													<input type="hidden" name="item_id" value="<c:out value="${item.id}" />" />
-													<input type="hidden" name="stockroom" value="<c:out value="${item.stockroom}" />" />
+													<input type="hidden" name="stockroom" value="<c:out value="${item.stockroom.id}" />" />
 													<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 												</div>
 											</form>
@@ -50,12 +50,12 @@
 		<div class="row">
 			<div class="col-xs-12">
 				<ul class="list-group">
-					<li class="list-group-item"><c:out value="${item.sku}" /></li>
-					<li class="list-group-item"><c:out value="${item.description}" /></li>
-					<li class="list-group-item"><c:out value="${item.stockroom}" /></li>
-					<li class="list-group-item"><c:out value="${item.location}" /></li>
-					<li class="list-group-item"><c:out value="${item.condition}" /></li>
-					<li class="list-group-item"><c:out value="${item.addedBy}" /></li>
+					<li class="list-group-item"><c:out value="${item.sku.id}" /></li>
+					<li class="list-group-item"><c:out value="${item.sku.description}" /></li>
+					<li class="list-group-item"><c:out value="${item.stockroom.description}" /></li>
+					<li class="list-group-item"><c:out value="${item.location.description}" /></li>
+					<li class="list-group-item"><c:out value="${item.itemCondition.description}" /></li>
+					<li class="list-group-item"><c:out value="${item.addedBy.username}" /></li>
 					
 					
 					
@@ -113,12 +113,12 @@
 						<c:forEach items="${similarItems}" var="similarItem">
 	                    	<tr>
 								<td><fmt:formatDate value="${similarItem.dateAdded}" pattern="MM/dd/yyyy" /></td>
-								<td><c:out value="${similarItem.sku}" /></td>
-								<td><c:out value="${similarItem.description}" /></td>
-								<td><c:out value="${similarItem.condition}" /></td>
-								<td><c:out value="${similarItem.stockroom}" /></td>
-								<td><c:out value="${similarItem.location}" /></td>
-								<td><c:out value="${similarItem.addedBy}" /></td>
+								<td><c:out value="${similarItem.sku.id}" /></td>
+								<td><c:out value="${similarItem.sku.description}" /></td>
+								<td><c:out value="${similarItem.itemCondition.description}" /></td>
+								<td><c:out value="${similarItem.stockroom.description}" /></td>
+								<td><c:out value="${similarItem.location.description}" /></td>
+								<td><c:out value="${similarItem.addedBy.username}" /></td>
 								<td>
 									<a href="<c:url value="/inventory/item/${similarItem.id}" />"><i class="fa fa-eye"></i></a>
 								</td>
