@@ -50,6 +50,7 @@ public class StockroomRepositoryImpl implements StockroomRepository{
 		
 		Stockroom stockroom = emf.createEntityManager()
 								 .find(Stockroom.class, id);
+		stockroom.setCount(countItemsByStockroomId(id));
 		
 		if(listItems)
 			stockroom.getItems().size();
