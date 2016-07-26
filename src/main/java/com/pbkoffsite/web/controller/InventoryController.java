@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pbkoffsite.web.bean.entity.AuthUserDetails;
 import com.pbkoffsite.web.bean.entity.Item;
 import com.pbkoffsite.web.bean.User;
 import com.pbkoffsite.web.service.hibernate.ItemService;
@@ -29,10 +30,10 @@ public class InventoryController {
 	//private UserDetailsService userService;
 	
 	@RequestMapping(value="/stockroom/{stockroom}", method=RequestMethod.GET)
-	public String viewStockroomInventory(@PathVariable("stockroom") String stockroom, Model model) {
+	public String viewStockroomInventory(@PathVariable("stockroom") Integer stockroom, Model model) {
 		
-//		model.addAttribute("stockroom", itemService.listItemsByStockroom(stockroom));
-//		model.addAttribute("stockrooms", itemService.countItemsByStockroom());
+		model.addAttribute("stockroom", stockroomService.findById(stockroom, true));
+		model.addAttribute("stockrooms", stockroomService.list());
 //		model.addAttribute("selectedStockroom", itemService.countItemsByStockroom(stockroom));
 		
 		return "stockroom";
@@ -56,7 +57,7 @@ public class InventoryController {
 		model.addAttribute("item", item);
 		model.addAttribute("similarItems", itemService.listSimilar(item));
 		model.addAttribute("stockrooms", stockroomService.list());
-//		model.addAttribute("removedReasons", itemService.listItemRemovedReasons());
+		model.addAttribute("removedReasons", itemService.listRemovalReasons());
 		
 		return "item";
 		
@@ -80,11 +81,11 @@ public class InventoryController {
 	public String removeItem(@RequestParam("item_id") Integer item_id,
 							 @RequestParam("reason_id") Integer reason_id,
 							 @RequestParam("stockroom") String stockroom, 
-							 @AuthenticationPrincipal User user) {
+							 @AuthenticationPrincipal AuthUserDetails user) {
 		
 //		//User user = userService.findUserByUsername(principal.getName());
 //		int status = itemService.removeItem(item_id, reason_id, user.getId());
-		
+		itemService.remove(item_id, reason_id, user.getId());
 		return "redirect:/inventory/stockroom/" + stockroom;
 		
 	}
