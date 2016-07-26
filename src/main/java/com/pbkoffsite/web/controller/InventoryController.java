@@ -9,9 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.pbkoffsite.web.bean.Item;
+import com.pbkoffsite.web.bean.entity.Item;
 import com.pbkoffsite.web.bean.User;
-import com.pbkoffsite.web.service.ItemService;
+import com.pbkoffsite.web.service.hibernate.ItemService;
+import com.pbkoffsite.web.service.hibernate.StockroomService;
 
 
 @Controller
@@ -21,15 +22,18 @@ public class InventoryController {
 	@Autowired
 	private ItemService itemService;
 	
+	@Autowired
+	private StockroomService stockroomService;
+	
 	//@Autowired
 	//private UserDetailsService userService;
 	
 	@RequestMapping(value="/stockroom/{stockroom}", method=RequestMethod.GET)
 	public String viewStockroomInventory(@PathVariable("stockroom") String stockroom, Model model) {
 		
-		model.addAttribute("stockroom", itemService.listItemsByStockroom(stockroom));
-		model.addAttribute("stockrooms", itemService.countItemsByStockroom());
-		model.addAttribute("selectedStockroom", itemService.countItemsByStockroom(stockroom));
+//		model.addAttribute("stockroom", itemService.listItemsByStockroom(stockroom));
+//		model.addAttribute("stockrooms", itemService.countItemsByStockroom());
+//		model.addAttribute("selectedStockroom", itemService.countItemsByStockroom(stockroom));
 		
 		return "stockroom";
 		
@@ -38,9 +42,9 @@ public class InventoryController {
 	@RequestMapping(value="/stockroom/all", method=RequestMethod.GET)
 	public String viewAllStockroomInventory(Model model) {
 		
-		model.addAttribute("stockroom", itemService.listAllItems());
-		model.addAttribute("stockrooms", itemService.countItemsByStockroom());
-		model.addAttribute("selectedStockroom", itemService.countItemsByStockroom("basement"));
+//		model.addAttribute("stockroom", itemService.listAllItems());
+//		model.addAttribute("stockrooms", itemService.countItemsByStockroom());
+//		model.addAttribute("selectedStockroom", itemService.countItemsByStockroom("basement"));
 		return "stockroom";
 		
 	}
@@ -48,11 +52,11 @@ public class InventoryController {
 	@RequestMapping(value="/item/{id}", method=RequestMethod.GET)
 	public String viewItemByID(@PathVariable("id") int id, Model model) {
 		
-		Item item = itemService.findItemById(id);
+		Item item = itemService.findById(id);
 		model.addAttribute("item", item);
-		model.addAttribute("similarItems", itemService.listSimilarItems(item));
-		model.addAttribute("stockrooms", itemService.countItemsByStockroom());
-		model.addAttribute("removedReasons", itemService.listItemRemovedReasons());
+		model.addAttribute("similarItems", itemService.listSimilar(item));
+		model.addAttribute("stockrooms", stockroomService.list());
+//		model.addAttribute("removedReasons", itemService.listItemRemovedReasons());
 		
 		return "item";
 		
@@ -78,8 +82,8 @@ public class InventoryController {
 							 @RequestParam("stockroom") String stockroom, 
 							 @AuthenticationPrincipal User user) {
 		
-		//User user = userService.findUserByUsername(principal.getName());
-		int status = itemService.removeItem(item_id, reason_id, user.getId());
+//		//User user = userService.findUserByUsername(principal.getName());
+//		int status = itemService.removeItem(item_id, reason_id, user.getId());
 		
 		return "redirect:/inventory/stockroom/" + stockroom;
 		

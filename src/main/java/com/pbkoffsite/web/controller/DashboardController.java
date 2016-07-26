@@ -6,7 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.pbkoffsite.web.service.ItemService;
+import com.pbkoffsite.web.service.hibernate.ItemService;
+import com.pbkoffsite.web.service.hibernate.StockroomService;
 
 @Controller
 public class DashboardController {
@@ -14,12 +15,15 @@ public class DashboardController {
 	@Autowired
 	private ItemService itemService;
 	
+	@Autowired
+	private StockroomService stockroomService;
+	
 	@RequestMapping(value="/home", method=RequestMethod.GET)
 	public String home(Model model) {
 		
-		model.addAttribute("stockrooms", itemService.countItemsByStockroom());
-		model.addAttribute("recentItems", itemService.listRecentlyAddedItems());
-		model.addAttribute("floormodels", itemService.listFloormodelItems());
+		model.addAttribute("stockrooms", stockroomService.list());
+		model.addAttribute("recentItems", itemService.listRecentlyAdded());
+		model.addAttribute("floormodels", itemService.listFloormodel());
 		
 		return "home";
 	
