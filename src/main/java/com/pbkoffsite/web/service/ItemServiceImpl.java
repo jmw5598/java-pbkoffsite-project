@@ -10,7 +10,7 @@ import com.pbkoffsite.web.bean.SimpleIdDescription;
 import com.pbkoffsite.web.bean.Stockroom;
 import com.pbkoffsite.web.repository.ItemRepository;
 
-@Service
+//@Service
 public class ItemServiceImpl implements ItemService {
 
 	@Autowired

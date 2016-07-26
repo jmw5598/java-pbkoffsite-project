@@ -13,7 +13,7 @@ import com.pbkoffsite.web.bean.User;
 import com.pbkoffsite.web.util.RoleMapper;
 import com.pbkoffsite.web.util.UserMapper;
 
-@Repository
+//@Repository
 public class UserRepositoryImpl implements UserRepository {
 	
 	@Autowired

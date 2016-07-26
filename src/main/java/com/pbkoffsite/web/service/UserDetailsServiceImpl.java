@@ -14,7 +14,7 @@ import com.pbkoffsite.web.bean.User;
 import com.pbkoffsite.web.repository.UserRepository;
 import com.pbkoffsite.web.bean.Role;
 
-@Service
+//@Service
 public class UserDetailsServiceImpl implements UserDetailsService{
 	
 	@Autowired

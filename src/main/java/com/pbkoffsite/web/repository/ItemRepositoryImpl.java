@@ -14,7 +14,7 @@ import com.pbkoffsite.web.util.ItemMapper;
 import com.pbkoffsite.web.util.SimpleIdDescriptionMapper;
 import com.pbkoffsite.web.util.StockroomMapper;
 
-@Repository
+//@Repository
 public class ItemRepositoryImpl implements ItemRepository {
 
 	
