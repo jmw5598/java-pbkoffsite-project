@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Table(name="removed_reason")
 public class RemovedReason extends SimpleIdDescription {
 	
-	@OneToMany(mappedBy="removedReason", cascade={CascadeType.PERSIST})
+	@OneToMany(mappedBy="removedReason")
 	private Collection<Item> items;
 	
 	
