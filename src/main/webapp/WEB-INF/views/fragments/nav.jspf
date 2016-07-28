@@ -94,7 +94,7 @@
 					</a>
 				</li>
 				<li>
-					<a href="<c:url value=" /admin/userAccounts" />">
+					<a href="<c:url value=" /admin/users" />">
 						<i class="fa fa-users"></i>
 						<spring:message code="label.userAccounts" />
 					</a>
