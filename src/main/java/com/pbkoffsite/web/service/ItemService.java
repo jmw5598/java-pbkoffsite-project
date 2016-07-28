@@ -19,5 +19,6 @@ public interface ItemService {
 	Item update(Item item);
 	Item delete(Item item);
 	void remove(int itemId, int removedReasonId, int userId);
+	void undoRemove(int itemId);
 	
 }

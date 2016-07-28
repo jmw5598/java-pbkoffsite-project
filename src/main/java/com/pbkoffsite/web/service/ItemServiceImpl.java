@@ -69,6 +69,11 @@ public class ItemServiceImpl implements ItemService {
 	public void remove(int itemId, int removedReasonId, int userId) {
 		itemRepository.remove(itemId, removedReasonId, userId);
 	}
+	
+	@Override
+	public void undoRemove(int itemId) {
+		itemRepository.undoRemove(itemId);
+	}
 
 	@Override
 	public List<RemovedReason> listRemovalReasons() {

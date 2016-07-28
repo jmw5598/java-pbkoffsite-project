@@ -82,7 +82,7 @@ public class ItemRepositoryImpl implements ItemRepository {
 	public List<Item> listRemoved() {
 		
 		return emf.createEntityManager()
-				.createQuery("FROM Item AS item WHERE isAvailable = false")
+				.createQuery("FROM Item AS item WHERE isAvailable = false ORDER BY item.dateRemoved")
 				.getResultList();
 	}
 
@@ -123,6 +123,24 @@ public class ItemRepositoryImpl implements ItemRepository {
 		
 		em.persist(item);
 		em.getTransaction().commit();
+	}
+	
+	@Override
+	public void undoRemove(int itemId) {
+		
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		Item item = em.find(Item.class, itemId);
+		item.setDateRemoved(null);
+		item.setRemovedReason(null);
+		item.setRemovedBy(null);
+		item.setAvailable(true);
+		
+		em.persist(item);
+		em.getTransaction().commit();
+		
+		
 	}
 
 	@Override

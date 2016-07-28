@@ -46,7 +46,7 @@
 						<td><fmt:formatDate value="${item.dateRemoved}" pattern="MM/dd/yyyy" />
 						<td><c:out value="${item.removedBy.username}" /></td>
 						<td>
-							<a href="<c:url value="/admin/item/unremove/${item.id}" />"><i class="fa fa-undo"></i></a>
+							<a href="<c:url value="/admin/item/remove/undo/${item.id}" />"><i class="fa fa-undo"></i></a>
 						</td>
 					</tr>
 				</c:forEach>
