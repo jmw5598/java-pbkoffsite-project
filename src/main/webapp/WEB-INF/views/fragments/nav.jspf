@@ -99,6 +99,12 @@
 						<spring:message code="label.userAccounts" />
 					</a>
 				</li>
+				<li>
+					<a href="<c:url value="/admin/item/remove" />">
+						<i class="fa fa-trash"></i>
+						<spring:message code="label.removedItems" />
+					</a>
+				</li>
 			</ul>
 		</li>
 	</sec:authorize>
