@@ -44,6 +44,11 @@ public class ItemServiceImpl implements ItemService {
 	public List<Item> listFloormodel() {
 		return itemRepository.listFloormodel();
 	}
+	
+	@Override
+	public List<Item> listRemoved() {
+		return itemRepository.listRemoved();
+	}
 
 	@Override
 	public Item findById(int id) {

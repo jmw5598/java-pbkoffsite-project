@@ -14,6 +14,7 @@ public interface ItemService {
 	List<Item> listSimilar(Item item);
 	List<Item> listFloormodel();
 	List<RemovedReason> listRemovalReasons();
+	List<Item> listRemoved();
 	Item findById(int id);
 	Item update(Item item);
 	Item delete(Item item);
