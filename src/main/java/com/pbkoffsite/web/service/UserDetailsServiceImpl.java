@@ -1,4 +1,4 @@
-package com.pbkoffsite.web.service.hibernate;
+package com.pbkoffsite.web.service;
 
 import java.util.Collection;
 
@@ -8,9 +8,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.pbkoffsite.web.bean.entity.AuthUserDetails;
-import com.pbkoffsite.web.bean.entity.Role;
-import com.pbkoffsite.web.repository.hibernate.UserRepository;
+import com.pbkoffsite.web.bean.AuthUserDetails;
+import com.pbkoffsite.web.bean.Role;
+import com.pbkoffsite.web.repository.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

@@ -11,15 +11,15 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.pbkoffsite.web.bean.entity.AuthUserDetails;
-import com.pbkoffsite.web.bean.entity.Location;
-import com.pbkoffsite.web.bean.entity.Item;
-import com.pbkoffsite.web.bean.entity.BasicUserDetails;
-import com.pbkoffsite.web.bean.entity.Role;
-import com.pbkoffsite.web.bean.entity.Stockroom;
-import com.pbkoffsite.web.repository.hibernate.ItemRepositoryImpl;
-import com.pbkoffsite.web.repository.hibernate.StockroomRepositoryImpl;
-import com.pbkoffsite.web.repository.hibernate.UserRepositoryImpl;
+import com.pbkoffsite.web.bean.AuthUserDetails;
+import com.pbkoffsite.web.bean.BasicUserDetails;
+import com.pbkoffsite.web.bean.Item;
+import com.pbkoffsite.web.bean.Location;
+import com.pbkoffsite.web.bean.Role;
+import com.pbkoffsite.web.bean.Stockroom;
+import com.pbkoffsite.web.repository.ItemRepositoryImpl;
+import com.pbkoffsite.web.repository.StockroomRepositoryImpl;
+import com.pbkoffsite.web.repository.UserRepositoryImpl;
 import com.pbkoffsite.config.BeanConfig;
 
 public class TestPersistence {

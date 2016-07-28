@@ -1,9 +1,9 @@
-package com.pbkoffsite.web.service.hibernate;
+package com.pbkoffsite.web.service;
 
 import java.util.List;
 
-import com.pbkoffsite.web.bean.entity.Item;
-import com.pbkoffsite.web.bean.entity.RemovedReason;
+import com.pbkoffsite.web.bean.Item;
+import com.pbkoffsite.web.bean.RemovedReason;
 
 public interface ItemService {
 	

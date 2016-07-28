@@ -6,8 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.pbkoffsite.web.service.hibernate.ItemService;
-import com.pbkoffsite.web.service.hibernate.StockroomService;
+import com.pbkoffsite.web.service.ItemService;
+import com.pbkoffsite.web.service.StockroomService;
 
 @Controller
 public class DashboardController {

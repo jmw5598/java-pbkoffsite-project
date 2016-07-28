@@ -10,9 +10,9 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
-import com.pbkoffsite.web.repository.hibernate.ItemRepositoryImpl;
-import com.pbkoffsite.web.repository.hibernate.StockroomRepositoryImpl;
-import com.pbkoffsite.web.repository.hibernate.UserRepositoryImpl;
+import com.pbkoffsite.web.repository.ItemRepositoryImpl;
+import com.pbkoffsite.web.repository.StockroomRepositoryImpl;
+import com.pbkoffsite.web.repository.UserRepositoryImpl;
 
 @Configuration
 public class BeanConfig {
@@ -46,7 +46,7 @@ public class BeanConfig {
 		LocalContainerEntityManagerFactoryBean emfb = new LocalContainerEntityManagerFactoryBean();
 		emfb.setDataSource(dataSource);
 		emfb.setJpaVendorAdapter(jpaVendorAdapter);
-		emfb.setPackagesToScan("com.pbkoffsite.web.bean.entity");
+		emfb.setPackagesToScan("com.pbkoffsite.web.bean");
 		return emfb;
 		
 	}

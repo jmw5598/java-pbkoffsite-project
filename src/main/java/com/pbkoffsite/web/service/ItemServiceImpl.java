@@ -1,13 +1,13 @@
-package com.pbkoffsite.web.service.hibernate;
+package com.pbkoffsite.web.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.pbkoffsite.web.bean.entity.Item;
-import com.pbkoffsite.web.bean.entity.RemovedReason;
-import com.pbkoffsite.web.repository.hibernate.ItemRepository;
+import com.pbkoffsite.web.bean.Item;
+import com.pbkoffsite.web.bean.RemovedReason;
+import com.pbkoffsite.web.repository.ItemRepository;
 
 @Service
 public class ItemServiceImpl implements ItemService {

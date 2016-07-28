@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pbkoffsite.web.bean.entity.Item;
-import com.pbkoffsite.web.bean.entity.SimpleIdDescription;
-import com.pbkoffsite.web.bean.entity.Stockroom;
-import com.pbkoffsite.web.bean.entity.BasicUserDetails;
-import com.pbkoffsite.web.service.hibernate.ItemService;
+import com.pbkoffsite.web.bean.BasicUserDetails;
+import com.pbkoffsite.web.bean.Item;
+import com.pbkoffsite.web.bean.SimpleIdDescription;
+import com.pbkoffsite.web.bean.Stockroom;
+import com.pbkoffsite.web.service.ItemService;
 
 @RestController
 @RequestMapping(value="/api/items")

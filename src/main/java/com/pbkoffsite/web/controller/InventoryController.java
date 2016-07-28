@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.pbkoffsite.web.bean.entity.AuthUserDetails;
-import com.pbkoffsite.web.bean.entity.Item;
-import com.pbkoffsite.web.service.hibernate.ItemService;
-import com.pbkoffsite.web.service.hibernate.StockroomService;
+import com.pbkoffsite.web.bean.AuthUserDetails;
+import com.pbkoffsite.web.bean.Item;
+import com.pbkoffsite.web.service.ItemService;
+import com.pbkoffsite.web.service.StockroomService;
 
 
 @Controller
