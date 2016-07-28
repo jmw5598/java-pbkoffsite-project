@@ -5,14 +5,21 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.pbkoffsite.web.bean.AuthUserDetails;
 import com.pbkoffsite.web.bean.Item;
+import com.pbkoffsite.web.bean.Role;
 import com.pbkoffsite.web.bean.Stockroom;
+import com.pbkoffsite.web.bean.UserForm;
 import com.pbkoffsite.web.service.ItemService;
 import com.pbkoffsite.web.service.StockroomService;
+import com.pbkoffsite.web.service.UserDetailsServiceImpl;
 
 @Controller
 @RequestMapping(value="/admin")
@@ -24,6 +31,9 @@ public class AdminController {
 	@Autowired
 	private StockroomService stockroomService;
 	
+	@Autowired
+	private UserDetailsServiceImpl userDetailsService;
+	
 	@RequestMapping(value="/cycleCount")
 	public String cycleCount() {
 		
@@ -33,27 +43,30 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value="/users", method=RequestMethod.GET)
-	public String users() {
+	public String users(Model model) {
 		
-		return "userAccounts";
+		List<Role> roles = userDetailsService.listRoles();
+		model.addAttribute("roles", roles);
+		return "users";
 		
 	}
 	
 	@RequestMapping(value="/users", method=RequestMethod.POST)
-	public String addUser() {
+	public String addUser(@ModelAttribute UserForm user) {
 		
-		return null;
+		userDetailsService.create(user);
+		return "redirect:/admin/users";
 		
 	}
 	
-	@RequestMapping(value="/users/edit/{id}", method=RequestMethod.GET)
+	@RequestMapping(value="/users/{id}", method=RequestMethod.GET)
 	public String editUser() {
 		
 		return null;
 		
 	}
 	
-	@RequestMapping(value="/users/update", method=RequestMethod.PUT)
+	@RequestMapping(value="/users/{id}", method=RequestMethod.POST)
 	public String updateUser() {
 		
 		return null;
