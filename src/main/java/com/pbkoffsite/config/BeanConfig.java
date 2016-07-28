@@ -50,4 +50,23 @@ public class BeanConfig {
 		return emfb;
 		
 	}
+	
+	
+	
+	
+	//TESTING
+	@Bean
+	public ItemRepositoryImpl itemRepositoryImpl() {
+		return new ItemRepositoryImpl();
+	}
+	
+	@Bean
+	public StockroomRepositoryImpl stockroomRepositoryImpl() {
+		return new StockroomRepositoryImpl();
+	}
+	
+	@Bean
+	public UserRepositoryImpl userRepositoryImpl() {
+		return new UserRepositoryImpl();
+	}
 }

@@ -82,7 +82,7 @@ public class ItemRepositoryImpl implements ItemRepository {
 	public List<Item> listRemoved() {
 		
 		return emf.createEntityManager()
-				.createQuery("FROM Item AS item WHERE isAvailable = false ORDER BY item.dateRemoved")
+				.createQuery("FROM Item AS item WHERE isAvailable = false ORDER BY item.dateRemoved DESC")
 				.getResultList();
 	}
 
