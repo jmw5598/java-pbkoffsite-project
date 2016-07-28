@@ -1,0 +1,7 @@
+<legend><h4><spring:message code="label.currentUsers" /></h4></legend>
+
+<p> list off all current user along with roles.  Add link to edit the user which will send to modify user page.</p>
+
+<legend><h4><spring:message code="label.addNewUser" /></h4></legend>
+
+<p> add new user form </p>
