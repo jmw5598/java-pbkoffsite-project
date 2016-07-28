@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.pbkoffsite.web.bean.entity.AuthUserDetails;
 import com.pbkoffsite.web.bean.entity.Item;
-import com.pbkoffsite.web.bean.User;
 import com.pbkoffsite.web.service.hibernate.ItemService;
 import com.pbkoffsite.web.service.hibernate.StockroomService;
 
