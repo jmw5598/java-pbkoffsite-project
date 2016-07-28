@@ -1,0 +1,57 @@
+<legend><h4><spring:message code="label.removedItems" /></h4></legend>
+
+<!-- ROW CONTAINER INPUT FILER FOR STOCKROOM ITEMS -->
+<div class="row">
+	<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+		<form>
+			<div class="input-group">
+				<span class="input-group-addon"><i class="fa fa-search"></i></span>
+				<input class="form-control" id="item-filter" name="floor-model-filter" type="text" placeholder="Filter floor models" />
+				<span class="input-group-btn">
+					<div class="btn btn-primary"><spring:message code="label.filter" /></div> 
+				</span>
+			</div>
+		</form>
+	</div>
+</div>
+
+<!-- REMOVED ITEMS -->
+<div class="row">
+	<div class="col-xs-12 item-searchable">
+		<div class="panel panel-default">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th><spring:message code="label.dateAdded" /></th>
+						<th><spring:message code="label.addedBy" /></th>
+						<th><spring:message code="label.sku" /></th>
+						<th><spring:message code="label.item" /></th>
+						<th><spring:message code="label.stockroom" /></th>
+						<th><spring:message code="label.location" /></th>
+						<th><spring:message code="label.dateRemoved" /></th>
+						<th><spring:message code="label.removedBy" /></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+                                   
+				<c:forEach items="${removedItems}" var="item">
+					<tr class="item-searchable">
+						<td><fmt:formatDate value="${item.dateAdded}" pattern="MM/dd/yyyy" /></td>
+						<td><c:out value="${item.addedBy.username}" /></td>
+						<td><c:out value="${item.sku.id}" /></td>
+						<td><c:out value="${item.sku.description}" /></td>
+						<td><c:out value="${item.stockroom.description}" /></td>
+						<td><c:out value="${item.location.description}" /></td>
+						<td><fmt:formatDate value="${item.dateRemoved}" pattern="MM/dd/yyyy" />
+						<td><c:out value="${item.removedBy.username}" /></td>
+						<td>
+							<a href="<c:url value="/admin/item/unremove/${item.id}" />"><i class="fa fa-undo"></i></a>
+						</td>
+					</tr>
+				</c:forEach>
+                                        
+			</tbody>
+		</table>
+	</div>                        
+</div>
