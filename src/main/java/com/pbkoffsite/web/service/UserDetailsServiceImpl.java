@@ -1,6 +1,7 @@
 package com.pbkoffsite.web.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,10 +11,11 @@ import org.springframework.stereotype.Service;
 
 import com.pbkoffsite.web.bean.AuthUserDetails;
 import com.pbkoffsite.web.bean.Role;
+import com.pbkoffsite.web.bean.UserForm;
 import com.pbkoffsite.web.repository.UserRepository;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService, MyUserDetailsService {
 	
 	
 	@Autowired
@@ -31,5 +33,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		
 		return user;
 	}
+	
+	@Override
+	public List<Role> listRoles() {
+		return userRepository.listRoles();
+	}
+	
+	@Override
+	public void create(UserForm user) {
+		userRepository.create(user);
+	}
+	
 
 }
