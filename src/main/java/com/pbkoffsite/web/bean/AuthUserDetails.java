@@ -1,5 +1,6 @@
 package com.pbkoffsite.web.bean;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.persistence.CascadeType;
@@ -23,7 +24,7 @@ public class AuthUserDetails extends AbstractUser implements UserDetails {
 	@Column(name="password")
 	private String password;
 	
-	@Transient
+	@Column(name="enabled")
 	private boolean isEnabled = true;
 	
 	@ManyToMany(cascade=CascadeType.PERSIST)
@@ -58,7 +59,7 @@ public class AuthUserDetails extends AbstractUser implements UserDetails {
 		return true;
 	}
 	
-	public void setPasspord(String password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 	
@@ -84,7 +85,14 @@ public class AuthUserDetails extends AbstractUser implements UserDetails {
 	public void setRoles(Collection<Role> roles) {
 		this.roles = roles;
 	}
+	
+	public void addRole(Role role) {
+		if(roles == null)
+			roles = new ArrayList<>();
+		roles.add(role);
+	}
 
+	
 
 	@Override
 	public String toString() {
