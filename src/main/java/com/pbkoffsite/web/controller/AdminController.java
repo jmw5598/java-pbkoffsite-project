@@ -1,12 +1,27 @@
 package com.pbkoffsite.web.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.pbkoffsite.web.bean.Item;
+import com.pbkoffsite.web.bean.Stockroom;
+import com.pbkoffsite.web.service.ItemService;
+import com.pbkoffsite.web.service.StockroomService;
 
 @Controller
 @RequestMapping(value="/admin")
 public class AdminController {
+	
+	@Autowired
+	private ItemService itemService;
+	
+	@Autowired
+	private StockroomService stockroomService;
 	
 	@RequestMapping(value="/cycleCount")
 	public String cycleCount() {
@@ -48,6 +63,19 @@ public class AdminController {
 	public String activity() {
 		
 		return "activity";
+		
+	}
+	
+	@RequestMapping(value="/item/remove", method=RequestMethod.GET)
+	public String removedItems(Model model) {
+		
+		List<Item> items = itemService.listRemoved();
+		List<Stockroom> stockrooms = stockroomService.list();
+		model.addAttribute("removedItems", items);
+		model.addAttribute("stockrooms", stockrooms);
+		
+		
+		return "removed";
 		
 	}
 }
