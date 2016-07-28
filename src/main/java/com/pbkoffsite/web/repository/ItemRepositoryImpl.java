@@ -33,8 +33,8 @@ public class ItemRepositoryImpl implements ItemRepository {
 	public List<Item> listAvailable() {
 		
 		return emf.createEntityManager()
-				  .createQuery("FROM Item AS item WHERE item.isAvailable = true")
-				  .getResultList();
+				.createQuery("FROM Item AS item WHERE item.isAvailable = true")
+				.getResultList();
 		
 	}
 
@@ -42,9 +42,9 @@ public class ItemRepositoryImpl implements ItemRepository {
 	public List<Item> listByStockroomId(int id) {
 		
 		return emf.createEntityManager()
-				  .createQuery("FROM Item AS item WHERE item.stockroom.id = :id AND item.isAvailable = true")
-				  .setParameter("id", id)
-				  .getResultList();
+				.createQuery("FROM Item AS item WHERE item.stockroom.id = :id AND item.isAvailable = true")
+				.setParameter("id", id)
+				.getResultList();
 		
 	}
 
@@ -53,20 +53,20 @@ public class ItemRepositoryImpl implements ItemRepository {
 	public List<Item> listRecentlyAdded() {
 		
 		return emf.createEntityManager()
-				  .createQuery("FROM Item AS item WHERE item.isAvailable = true ORDER BY item.dateAdded DESC")
-				  .setFirstResult(0)
-				  .setMaxResults(15)
-				  .getResultList();
+				.createQuery("FROM Item AS item WHERE item.isAvailable = true ORDER BY item.dateAdded DESC")
+				.setFirstResult(0)
+				.setMaxResults(15)
+				.getResultList();
 	}
 
 	@Override
 	public List<Item> listSimilar(Item item) {
 		
 		return emf.createEntityManager()
-				  .createQuery("FROM Item AS item WHERE item.sku.id = :skuId AND item.id != :itemId AND item.isAvailable = true")
-				  .setParameter("skuId", item.getSku().getId())
-				  .setParameter("itemId", item.getId())
-				  .getResultList();
+				.createQuery("FROM Item AS item WHERE item.sku.id = :skuId AND item.id != :itemId AND item.isAvailable = true")
+				.setParameter("skuId", item.getSku().getId())
+				.setParameter("itemId", item.getId())
+				.getResultList();
 		
 	}
 
@@ -74,8 +74,16 @@ public class ItemRepositoryImpl implements ItemRepository {
 	public List<Item> listFloormodel() {
 		
 		return emf.createEntityManager()
-				  .createQuery("FROM Item AS item WHERE item.itemCondition.id != 1 AND item.itemCondition.id != 2 AND item.isAvailable = true")
-				  .getResultList();
+				.createQuery("FROM Item AS item WHERE item.itemCondition.id != 1 AND item.itemCondition.id != 2 AND item.isAvailable = true")
+				.getResultList();
+	}
+	
+	@Override
+	public List<Item> listRemoved() {
+		
+		return emf.createEntityManager()
+				.createQuery("FROM Item AS item WHERE isAvailable = false")
+				.getResultList();
 	}
 
 	@Override

@@ -12,6 +12,7 @@ public interface ItemRepository {
 	List<Item> listRecentlyAdded();
 	List<Item> listSimilar(Item item);
 	List<Item> listFloormodel();
+	List<Item> listRemoved();
 	List<RemovedReason> listRemovalReasons();
 	Item findById(int id);
 	Item update(Item item);
