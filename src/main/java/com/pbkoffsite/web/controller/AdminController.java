@@ -45,8 +45,12 @@ public class AdminController {
 	@RequestMapping(value="/users", method=RequestMethod.GET)
 	public String users(Model model) {
 		
+		List<AuthUserDetails> users = userDetailsService.list();
 		List<Role> roles = userDetailsService.listRoles();
+		List<Stockroom> stockrooms = stockroomService.list();
 		model.addAttribute("roles", roles);
+		model.addAttribute("users", users);
+		model.addAttribute("stockrooms", stockrooms);
 		return "users";
 		
 	}
@@ -71,6 +75,14 @@ public class AdminController {
 		
 		return null;
 		
+	}
+	
+	@RequestMapping(value="/users/toggleEnabled/{id}")
+	public String toggleEnabled(@PathVariable("id") int id) {
+		
+		userDetailsService.toggleEnabled(id);
+		
+		return "forward:/admin/users";
 	}
 	
 	@RequestMapping(value="/activity")

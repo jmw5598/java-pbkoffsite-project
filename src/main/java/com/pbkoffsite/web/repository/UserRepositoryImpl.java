@@ -65,6 +65,7 @@ public class UserRepositoryImpl implements UserRepository {
 		
 		em.persist(newUser);
 		em.getTransaction().commit();
+		em.close();
 		
 		return null;
 	}
@@ -89,6 +90,17 @@ public class UserRepositoryImpl implements UserRepository {
 				.getResultList();
 	}
 	
-	
+	@Override
+	public void toggleEnabled(int id) {
+		
+		EntityManager em = emf.createEntityManager();
+		em.getTransaction().begin();
+		
+		AuthUserDetails user = em.find(AuthUserDetails.class, id);
+		user.setEnabled(!(user.isEnabled()));
+		
+		em.getTransaction().commit();
+		em.close();
+	}
 	
 }

@@ -43,6 +43,16 @@ public class UserDetailsServiceImpl implements UserDetailsService, MyUserDetails
 	public void create(UserForm user) {
 		userRepository.create(user);
 	}
+
+	@Override
+	public List<AuthUserDetails> list() {
+		return userRepository.list();
+	}
+
+	@Override
+	public void toggleEnabled(int id) {
+		userRepository.toggleEnabled(id);
+	}
 	
 
 }

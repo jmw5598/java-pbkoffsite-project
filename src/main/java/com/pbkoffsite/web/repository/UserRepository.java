@@ -15,5 +15,6 @@ public interface UserRepository {
 	Collection<Role> findRolesByUsername(String username);
 	AuthUserDetails create(UserForm user);
 	AuthUserDetails update(AuthUserDetails user);
+	void toggleEnabled(int id);
 	
 }

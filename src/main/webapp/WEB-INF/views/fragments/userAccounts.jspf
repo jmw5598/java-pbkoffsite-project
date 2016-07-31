@@ -1,10 +1,41 @@
-<legend><h4><spring:message code="label.currentUsers" /><span class="btn btn-primary pull-right" data-toggle="modal" data-target="#add-user-modal"><i class="fa fa-plus-circle"></i> Add User</span></h4></legend>
 
-<p> list off all current user along with roles.  Add link to edit the user which will send to modify user page.</p>
+<legend><h4><spring:message code="label.currentUsers" /><span class="btn btn-primary pull-right btn-circle-md" data-toggle="modal" data-target="#add-user-modal"><i class="fa fa-user-plus fa-1x"></i> Add User</span></h4></legend>
 
-<legend><h4><spring:message code="label.addNewUser" /></h4></legend>
-
-
+<div class="col-xs-12">
+	<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+				<form>
+					<div class="input-group">
+						<span class="input-group-addon"><i class="fa fa-search"></i></span>
+						<input class="form-control" id="item-filter" name="floor-model-filter" type="text" placeholder="Filter floor models" />
+						<span class="input-group-btn">
+							<div class="btn btn-primary">Filter</div> 
+						</span>
+					</div>
+				</form>
+			</div>
+	</div>
+	<div class="row">
+		<c:forEach items="${users}" var="user">
+			<div class="col-xs-12 col-sm-12 col-md-3 item-searchable">
+				<div class="panel <c:out value="${ user.enabled ? 'panel-primary' : 'panel-default' }" />">
+					<div class="panel-heading">
+						<h4><c:out value="${user.firstName}" /> <c:out value="${user.lastName}" /></h4>
+					</div>
+					<div class="panel-body">
+						Username: <c:out value="${user.username}" />
+						<br />
+						Status: <c:out value="${user.enabled ? 'Enabled' : 'Disabled'}" />
+					</div>
+					<div class="panel-footer">
+						<a href="#"><span><i class="fa fa-pencil"></i></span></a>
+						<a href="/admin/users/toggleEnabled/<c:out value="${user.id}" />"><span><i class="fa fa-toggle-on"></i></span></a>
+					</div>
+				</div>
+			</div>
+		</c:forEach>
+	</div>
+</div>
 
 <div class="modal fade" id="add-user-modal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel">
 	<div class="modal-dialog" role="document">
@@ -16,6 +47,17 @@
 			<div class="modal-body">
 				<form action="<c:url value="/admin/users" />" method="POST">
 					<fieldset>
+						
+						<div class="alert alert-success alert-dismissible" role="alert">
+						  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						  <strong>Success</strong> New user has successfully been added.
+						</div>
+							
+						<div class="alert alert-danger alert-dismissible" role="alert">
+						  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						  <strong>Error</strong> There were errors in the form. Please try again
+						</div>
+						
 						<div class="form-group">
 							<label for="username">Username</label>
 							<input class="form-control" type="text" name="username" id="username" />
@@ -42,7 +84,7 @@
 						</div>
 						<div class="form-group">
 							<legend></legend>
-							<input class="form-control btn btn-success" type="submit" value="Add" />
+							<input class="form-control btn btn-primary" type="submit" value="Add" />
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 						</div>
 					</fieldset>
