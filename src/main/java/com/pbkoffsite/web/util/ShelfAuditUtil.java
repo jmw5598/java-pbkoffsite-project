@@ -18,10 +18,9 @@ public class ShelfAuditUtil {
 	 * @param actual 	The skus that were actually counted on the shelf.
 	 * @return			The different between the expected and the actual.
 	 */
-	public static Map<Sku, Integer> compare(List<Sku> expected, List<Sku> actual) {
+	public static Map<Sku, Integer> difference(List<Sku> expected, List<Sku> actual) {
 		
 		Map<Sku, Integer> result = new HashMap<>();
-		//need to override equals method of Sku
 		int count;
 		
 		for(Sku  sku: expected) {
