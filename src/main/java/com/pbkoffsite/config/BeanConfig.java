@@ -9,6 +9,8 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.pbkoffsite.web.repository.ItemRepositoryImpl;
 import com.pbkoffsite.web.repository.StockroomRepositoryImpl;
@@ -17,6 +19,7 @@ import com.pbkoffsite.web.repository.UserRepositoryImpl;
 @Configuration
 public class BeanConfig {
 	
+	// use apache commons DBCP's BasicDatasource
 	@Bean
 	public DriverManagerDataSource dataSource() {
 		
@@ -55,18 +58,23 @@ public class BeanConfig {
 	
 	
 	//TESTING
-	@Bean
-	public ItemRepositoryImpl itemRepositoryImpl() {
-		return new ItemRepositoryImpl();
-	}
+//	@Bean
+//	public ItemRepositoryImpl itemRepositoryImpl() {
+//		return new ItemRepositoryImpl();
+//	}
+//	
+//	@Bean
+//	public StockroomRepositoryImpl stockroomRepositoryImpl() {
+//		return new StockroomRepositoryImpl();
+//	}
+//	
+//	@Bean
+//	public UserRepositoryImpl userRepositoryImpl() {
+//		return new UserRepositoryImpl();
+//	}
 	
-	@Bean
-	public StockroomRepositoryImpl stockroomRepositoryImpl() {
-		return new StockroomRepositoryImpl();
-	}
-	
-	@Bean
-	public UserRepositoryImpl userRepositoryImpl() {
-		return new UserRepositoryImpl();
-	}
+//	@Bean
+//	public PasswordEncoder passwordEncoder() {
+//		return new BCryptPasswordEncoder();
+//	}
 }

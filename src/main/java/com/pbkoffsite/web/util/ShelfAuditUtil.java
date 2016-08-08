@@ -9,7 +9,7 @@ import com.pbkoffsite.web.bean.Sku;
 public class ShelfAuditUtil {
 	
 	/**
-	 * The compare method takes two parameters, the expected skus on the shelf
+	 * The difference method takes two parameters, the expected skus on the shelf
 	 * and the actual skus counted on the shelf.  It returns the difference between
 	 * the expected and actual as Map<Sku, Integer> with the Integer being a counter.
 	 * The count will be negative if the sku is missing and positive if the sku is excess.
