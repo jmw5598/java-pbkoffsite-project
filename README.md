@@ -1,4 +1,4 @@
-# java-pbso-project
+# java-pbkoffsite-project
 Pottery Barn Kids Offsite Management App
 - An application I'm working on to manage offsite stockroom inventory at PBK.
 
