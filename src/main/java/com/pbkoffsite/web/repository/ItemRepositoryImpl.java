@@ -12,7 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.pbkoffsite.web.bean.BasicUserDetails;
 import com.pbkoffsite.web.bean.Item;
+import com.pbkoffsite.web.bean.ItemCondition;
+import com.pbkoffsite.web.bean.Location;
 import com.pbkoffsite.web.bean.RemovedReason;
+import com.pbkoffsite.web.bean.Stockroom;
 
 @Repository
 @Transactional
@@ -90,7 +93,7 @@ public class ItemRepositoryImpl implements ItemRepository {
 	public Item findById(int id) {
 		
 		return emf.createEntityManager()
-				  .find(Item.class, id);
+				.find(Item.class, id);
 	}
 
 	@Override
@@ -147,6 +150,46 @@ public class ItemRepositoryImpl implements ItemRepository {
 	public List<RemovedReason> listRemovalReasons() {
 		return emf.createEntityManager()
 				.createQuery("From RemovedReason").getResultList();
+	}
+
+	@Override
+	public Location getItemLocation(int id) {
+		List<Location> location = emf.createEntityManager()
+				.createQuery("SELECT item.location FROM Item as item WHERE item.id = :id")
+				.setParameter("id", id)
+				.setMaxResults(1)
+				.getResultList();
+		return location.size() == 1 ? location.get(0) : null;
+	}
+
+	@Override
+	public Stockroom getItemStockroom(int id) {
+		List<Stockroom> stockroom = emf.createEntityManager()
+				.createQuery("SELECT item.stockroom FROM Item as item WHERE item.id = :id")
+				.setParameter("id", id)
+				.setMaxResults(1)
+				.getResultList();
+		return stockroom.size() == 1 ? stockroom.get(0) : null;
+	}
+
+	@Override
+	public ItemCondition getItemCondition(int id) {
+		List<ItemCondition> itemCondition = emf.createEntityManager()
+				.createQuery("SELECT item.itemCondition FROM Item as item WHERE item.id = :id")
+				.setParameter("id", id)
+				.setMaxResults(1)
+				.getResultList();
+		return itemCondition.size() == 1 ? itemCondition.get(0) : null;
+	}
+
+	@Override
+	public Boolean isAvailable(int id) {
+		List<Boolean> availability = emf.createEntityManager()
+				.createQuery("SELECT item.isAvailable FROM Item as item WHERE item.id = :id")
+				.setParameter("id", id)
+				.setMaxResults(1)
+				.getResultList();
+		return availability.size() == 1 ? availability.get(0) : null;
 	}
 	
 	

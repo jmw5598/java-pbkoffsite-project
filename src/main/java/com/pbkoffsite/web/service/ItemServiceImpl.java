@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pbkoffsite.web.bean.Item;
+import com.pbkoffsite.web.bean.ItemCondition;
+import com.pbkoffsite.web.bean.Location;
 import com.pbkoffsite.web.bean.RemovedReason;
+import com.pbkoffsite.web.bean.Stockroom;
 import com.pbkoffsite.web.repository.ItemRepository;
 
 @Service
@@ -78,6 +81,26 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public List<RemovedReason> listRemovalReasons() {
 		return itemRepository.listRemovalReasons();
+	}
+
+	@Override
+	public Location getItemLocation(int id) {
+		return itemRepository.getItemLocation(id);
+	}
+
+	@Override
+	public Stockroom getItemStockroom(int id) {
+		return itemRepository.getItemStockroom(id);
+	}
+
+	@Override
+	public ItemCondition getItemCondition(int id) {
+		return itemRepository.getItemCondition(id);
+	}
+
+	@Override
+	public Boolean isAvailable(int id) {
+		return itemRepository.isAvailable(id);
 	}
 	
 	

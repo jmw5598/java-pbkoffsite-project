@@ -3,7 +3,10 @@ package com.pbkoffsite.web.repository;
 import java.util.List;
 
 import com.pbkoffsite.web.bean.Item;
+import com.pbkoffsite.web.bean.ItemCondition;
+import com.pbkoffsite.web.bean.Location;
 import com.pbkoffsite.web.bean.RemovedReason;
+import com.pbkoffsite.web.bean.Stockroom;
 
 public interface ItemRepository {
 	List<Item> list();
@@ -19,4 +22,8 @@ public interface ItemRepository {
 	Item delete(Item item);
 	void remove(int itemId, int removedReasonId, int userId);
 	void undoRemove(int itemId);
+	Location getItemLocation(int id);
+	Stockroom getItemStockroom(int id);
+	ItemCondition getItemCondition(int id);
+	Boolean isAvailable(int id);
 }
