@@ -84,7 +84,8 @@ public class ItemRestController {
 	}
 	
 	@ExceptionHandler(ItemNotFoundException.class)
-	public ResponseEntity<String> handleConflicts(Exception e) {
+	public ResponseEntity<String> handleNotFound(Exception e) {
 		return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 	}
+	
 }

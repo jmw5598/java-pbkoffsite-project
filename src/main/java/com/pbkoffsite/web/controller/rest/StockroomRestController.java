@@ -33,59 +33,28 @@ public class StockroomRestController {
 	@Autowired
 	private StockroomResourceAssembler stockroomResourceAssebler;
 	
-	//get all stockrooms
 	@RequestMapping(method=RequestMethod.GET)
 	public List<Stockroom> getStockrooms() {
 		return stockroomService.list();
 	}
 	
-	//create new stockroom
 	@RequestMapping(method=RequestMethod.POST, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> createStockroom() {
-		
-		Stockroom stockroom = new Stockroom();
-		stockroom.setId(4);
-		
-		HttpHeaders headers = new HttpHeaders();
-		headers.setLocation(linkTo(StockroomRestController.class).slash(stockroom.getId()).toUri());
-		
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+		return null;
 	}
 	
-	
-	
-	//get stockroom by id
 	@RequestMapping(value="/{id}", method=RequestMethod.GET, consumes=MediaType.APPLICATION_JSON_VALUE, produces=MediaType.APPLICATION_JSON_VALUE)
-	public Resource<Stockroom> getStockroomById(@PathVariable("id") int id) 
-			throws StockroomNotFoundException {
-		
-		//temp stockroom
-		Stockroom stockroom = new Stockroom();
-		stockroom.setId(4);
-		stockroom.setDescription("Loft");
-		
-		//stockroom = null;
-		
-		if(stockroom == null)
-			throw new StockroomNotFoundException();
-		
-		
-		
-		return stockroomResourceAssebler.toResource(stockroom);
+	public Resource<Stockroom> getStockroomById(@PathVariable("id") int id) throws StockroomNotFoundException {
+		return null;
 	}
 	
-	//get items by stockroom
 	@RequestMapping(value="/{id}/items", method=RequestMethod.GET)
 	public List<Item> getStockroomItems(@PathVariable("id") int id) {
 		return stockroomService.listItems(id);
 	}
 	
-	
-	
-	// handleConflicts() implementation
-	
 	@ExceptionHandler(StockroomNotFoundException.class)
-	public ResponseEntity<String> handleConflicts(Exception e) {
+	public ResponseEntity<String> handleNotFound(Exception e) {
 		return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 	}
 	
