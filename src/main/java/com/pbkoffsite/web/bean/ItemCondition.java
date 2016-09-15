@@ -7,8 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="item_condition")
+@JsonIgnoreProperties("items")
 public class ItemCondition extends SimpleIdDescription {
 	
 	@OneToMany(mappedBy="itemCondition", cascade={CascadeType.PERSIST})

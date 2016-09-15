@@ -8,8 +8,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="stockroom")
+@JsonIgnoreProperties("items")
 public class Stockroom extends SimpleIdDescription {
 	
 	

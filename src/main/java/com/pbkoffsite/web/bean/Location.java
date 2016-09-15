@@ -4,14 +4,19 @@ import java.util.Collection;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name="location")
+@JsonIgnoreProperties("items")
 public class Location extends SimpleIdDescription{
 	
-	@OneToMany(mappedBy="location", cascade={CascadeType.PERSIST})
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="location", cascade={CascadeType.PERSIST})
 	private Collection<Item> items;
 	
 	public Collection<Item> getItems() {

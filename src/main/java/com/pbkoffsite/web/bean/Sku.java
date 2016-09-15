@@ -1,6 +1,7 @@
 package com.pbkoffsite.web.bean;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
@@ -9,16 +10,22 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name="sku")
+@JsonIgnoreProperties("items")
 public class Sku extends SimpleIdDescription {
 	
 	@OneToMany(mappedBy="sku", cascade={CascadeType.PERSIST})
-	
 	private Collection<Item> items;
+	
+	//@ManyToMany(mappedBy="acutalSkus")
+	//private List<ShelfAudit> shelfAudits;
 	
 	
 	public Sku() {}
@@ -35,6 +42,15 @@ public class Sku extends SimpleIdDescription {
 		this.items.add(item);
 		item.setSku(this);
 	}
+
+//	public List<ShelfAudit> getShelfAudits() {
+//		return shelfAudits;
+//	}
+//
+//	public void setShelfAudits(List<ShelfAudit> shelfAudits) {
+//		this.shelfAudits = shelfAudits;
+//	}
+	
 
 	@Override
 	public String toString() {

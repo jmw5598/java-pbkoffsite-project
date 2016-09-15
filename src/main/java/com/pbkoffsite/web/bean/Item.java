@@ -18,6 +18,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity
 @Table(name="item")
 public class Item {
@@ -26,11 +28,11 @@ public class Item {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	@ManyToOne(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="location_id")
 	private Location location;
 	
-	@ManyToOne(cascade={CascadeType.PERSIST, CascadeType.REMOVE})
+	@ManyToOne(cascade={CascadeType.PERSIST})
 	@JoinColumn(name="sku_id")
 	private Sku sku;
 	
@@ -73,6 +75,10 @@ public class Item {
 		inverseJoinColumns={@JoinColumn(name="image_id")}
 	)
 	private List<Image> images;
+	
+	//@ManyToMany(mappedBy="expectedItems")
+	//private List<ShelfAudit> shelfAudits;
+	
 	
 	public Item() {}
 
@@ -184,6 +190,14 @@ public class Item {
 	public void addImage(Image image) {
 		this.images.add(image);
 	}
+
+//	public List<ShelfAudit> getShelfAudits() {
+//		return shelfAudits;
+//	}
+//
+//	public void setShelfAudits(List<ShelfAudit> shelfAudits) {
+//		this.shelfAudits = shelfAudits;
+//	}
 
 
 	@Override

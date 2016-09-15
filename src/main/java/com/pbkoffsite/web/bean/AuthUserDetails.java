@@ -78,6 +78,7 @@ public class AuthUserDetails extends AbstractUser implements UserDetails {
 
 
 	public Collection<Role> getRoles() {
+		System.out.println(roles);
 		return roles;
 	}
 
