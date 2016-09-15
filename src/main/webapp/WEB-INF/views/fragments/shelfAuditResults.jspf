@@ -1,0 +1,80 @@
+<div class="container-fluid">
+            <div class="row">
+                <div class="col-xs-12">
+                    <legend><h3>Shelf Audit Results</h3></legend>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-4">
+                    <div>
+                    <canvas id="myChart" width="500" height="500"></canvas>
+                    </div>
+                </div>
+                <div class="col-xs-8">
+                    <div class="panel panel-default">
+                    <div class="panel-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Sku</th>
+                                <th>Description</th>
+                                <th>Overage</th>
+                                <th>Shortage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>3212123</td>
+                                <td>Description for Item 1</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>3212123</td>
+                                <td>Description for Item 2</td>
+                                <td>2</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>3212123</td>
+                                <td>Description for Item 3</td>
+                                <td>-</td>
+                                <td>-1</td>
+                            </tr>
+                            <tr>
+                                <td>3212123</td>
+                                <td>Description for Item 4</td>
+                                <td>1</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>3212123</td>
+                                <td>Description for Item 5</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>3212123</td>
+                                <td>Description for Item 6</td>
+                                <td>3</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>3212123</td>
+                                <td>Description for Item 7</td>
+                                <td>1</td>
+                                <td>-</td>
+                            </tr>
+                            <tr>
+                                <td>3212123</td>
+                                <td>Description for Item 8</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
