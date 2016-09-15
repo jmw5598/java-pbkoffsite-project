@@ -50,6 +50,7 @@ public class ItemRestController {
 	@RequestMapping(value="/{id}", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public Resource<Item> getItem(@PathVariable("id") int id) throws ItemNotFoundException {
 		Item item = itemService.findById(id);
+		if(item == null) throw new ItemNotFoundException();
 		return itemResourceAssembler.toResource(item);
 	}
 	
@@ -65,22 +66,32 @@ public class ItemRestController {
 	
 	@RequestMapping(value="/{id}/location", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public Location getItemLocation(@PathVariable("id") int id) throws ItemNotFoundException {
-		return null;
+		Location location = itemService.getItemLocation(id);
+		if(location == null) throw new ItemNotFoundException();
+		return location;
 	}
 	
 	@RequestMapping(value="/{id}/stockroom", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public Stockroom getItemStockroom(@PathVariable("id") int id) throws ItemNotFoundException {
-		return null;
+		Stockroom stockroom = itemService.getItemStockroom(id);
+		if(stockroom == null) throw new ItemNotFoundException();
+		return stockroom;
 	}
 	
-	@RequestMapping(value="/{id}/conditino", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value="/{id}/condition", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
 	public ItemCondition getItemCondition(@PathVariable("id") int id) throws ItemNotFoundException {
-		return null;
+		ItemCondition itemCondition = itemService.getItemCondition(id);
+		if(itemCondition == null) throw new ItemNotFoundException();
+		return itemCondition;
 	}
 	
 	@RequestMapping(value="/{id}/availability", method=RequestMethod.GET, produces=MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Boolean> getItemAvailibility(@PathVariable("id") int id) throws ItemNotFoundException {
-		return null;
+	public Boolean getItemAvailibility(@PathVariable("id") int id) throws ItemNotFoundException {
+		
+		Boolean isAvailable = itemService.isAvailable(id);
+		if(isAvailable == null) throw new ItemNotFoundException();
+		
+		return isAvailable;
 	}
 	
 	@ExceptionHandler(ItemNotFoundException.class)
