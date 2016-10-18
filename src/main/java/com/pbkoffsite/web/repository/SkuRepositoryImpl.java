@@ -2,8 +2,8 @@ package com.pbkoffsite.web.repository;
 
 import java.util.List;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,21 +15,19 @@ import com.pbkoffsite.web.bean.Sku;
 @SuppressWarnings("unchecked")
 public class SkuRepositoryImpl implements SkuRepository {
 	
-	@PersistenceUnit
-	EntityManagerFactory emf;
+	@PersistenceContext
+	EntityManager em;
 
 	@Override
 	public List<Sku> list() {
-		return emf.createEntityManager()
-				.createQuery("FROM Sku")
+		return em.createQuery("FROM Sku")
 				.getResultList();
 	}
 
 	@Override
 	public Sku find(int id) {
 		
-		List<Sku> skus = emf.createEntityManager()
-				.createQuery("FROM Sku as sku WHERE sku.id = :id")
+		List<Sku> skus = em.createQuery("FROM Sku as sku WHERE sku.id = :id")
 				.setParameter("id", id)
 				.setMaxResults(1)
 				.getResultList();
@@ -39,7 +37,7 @@ public class SkuRepositoryImpl implements SkuRepository {
 
 	@Override
 	public Sku create(Sku sku) {
-		emf.createEntityManager().persist(sku);
+		em.persist(sku);
 		return sku;
 	}
 	

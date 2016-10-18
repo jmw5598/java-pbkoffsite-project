@@ -4,8 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,14 +23,13 @@ public class UserRepositoryImpl implements UserRepository {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	@PersistenceUnit
-	private EntityManagerFactory emf;
+	@PersistenceContext
+	private EntityManager em;
 	
 	@Override
 	public AuthUserDetails findUserByUsername(String username) {
 		
-		AuthUserDetails user =  (AuthUserDetails) emf.createEntityManager()
-				.createQuery("FROM AuthUserDetails AS u WHERE u.username = :username")
+		AuthUserDetails user =  (AuthUserDetails) em.createQuery("FROM AuthUserDetails AS u WHERE u.username = :username")
 				.setParameter("username", username)
 				.getSingleResult();
 		user.getRoles().size();
@@ -49,10 +47,7 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public AuthUserDetails create(UserForm user) {
-		
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-		
+			
 		Role role = (Role)em.createQuery("FROM Role as role WHERE role.role = :userRole")
 				.setParameter("userRole", user.getRole())
 				.getSingleResult();
@@ -63,11 +58,7 @@ public class UserRepositoryImpl implements UserRepository {
 		newUser.setPassword(passwordEncoder.encode(user.getPassword()));
 		newUser.addRole(role);
 		
-		em.persist(newUser);
-		em.getTransaction().commit();
-		em.close();
-		
-		return null;
+		return newUser;
 	}
 
 	@Override
@@ -78,29 +69,22 @@ public class UserRepositoryImpl implements UserRepository {
 	
 	@Override
 	public List<AuthUserDetails> list() {
-		return emf.createEntityManager()
-				.createQuery("FROM AuthUserDetails As user")
+		return em.createQuery("FROM AuthUserDetails As user")
 				.getResultList();
 	}
 	
 	@Override
 	public List<Role> listRoles() {
-		return emf.createEntityManager()
-				.createQuery("FROM Role AS role")
+		return em.createQuery("FROM Role AS role")
 				.getResultList();
 	}
 	
 	@Override
 	public void toggleEnabled(int id) {
-		
-		EntityManager em = emf.createEntityManager();
-		em.getTransaction().begin();
-		
+			
 		AuthUserDetails user = em.find(AuthUserDetails.class, id);
 		user.setEnabled(!(user.isEnabled()));
 		
-		em.getTransaction().commit();
-		em.close();
 	}
 	
 }

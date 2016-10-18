@@ -2,12 +2,13 @@ package com.pbkoffsite.web.repository;
 
 import java.util.List;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pbkoffsite.web.bean.Item;
 import com.pbkoffsite.web.bean.Stockroom;
 
 @Repository
@@ -15,15 +16,14 @@ import com.pbkoffsite.web.bean.Stockroom;
 @SuppressWarnings("unchecked")
 public class StockroomRepositoryImpl implements StockroomRepository{
 	
-	@PersistenceUnit
-	EntityManagerFactory emf;
+	@PersistenceContext
+	EntityManager em;
 	
 	
 	@Override
 	public List<Stockroom> list() {
 		
-		List<Stockroom> stockrooms = emf.createEntityManager()
-										.createQuery("FROM Stockroom")
+		List<Stockroom> stockrooms = em.createQuery("FROM Stockroom")
 										.getResultList();
 		
 		for(Stockroom s : stockrooms) {
@@ -48,8 +48,7 @@ public class StockroomRepositoryImpl implements StockroomRepository{
 	@Override
 	public Stockroom findById(int id, boolean listItems) {
 		
-		Stockroom stockroom = emf.createEntityManager()
-								 .find(Stockroom.class, id);
+		Stockroom stockroom = em.find(Stockroom.class, id);
 		stockroom.setCount(countItemsByStockroomId(id));
 		
 		if(listItems)
@@ -61,9 +60,15 @@ public class StockroomRepositoryImpl implements StockroomRepository{
 	@Override
 	public Long countItemsByStockroomId(int id) {
 		
-		return (Long)emf.createEntityManager()
-				.createQuery("SELECT COUNT(*) FROM Item as item WHERE item.stockroom.id = :id")
+		return (Long)em.createQuery("SELECT COUNT(*) FROM Item as item WHERE item.stockroom.id = :id")
 				.setParameter("id", id).getSingleResult();
+	}
+
+	@Override
+	public List<Item> listItems(int id) {
+		return em.createQuery("FROM Item as item WHERE item.stockroom.id = :id AND item.isAvailable = true")
+				.setParameter("id", id)
+				.getResultList();
 	}
 
 }
